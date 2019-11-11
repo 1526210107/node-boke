@@ -1,0 +1,21 @@
+{
+  "name": "node-boke",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.19.4",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3"
+  }
+}
