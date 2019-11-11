@@ -1,7 +1,6 @@
 const handlerUserRouter = (req, res) => {
   const method = req.method;
-  const url = req.url;
-  const path = url.split("?")[0];
+  const path = req.path;
 
   // 登录接口
   if( method === 'GET' && path === '/api/user/login' ){

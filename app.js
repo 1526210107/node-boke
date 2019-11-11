@@ -1,7 +1,12 @@
+const querystring = require('querystring');
 const handlerBlogRouter = require('./src/router/blog');
 const handlerUserRouter = require('./src/router/user');
 const serverHandler = (req, res) => {
   res.setHeader("Content-Type", "application/json");
+
+  const url = req.url;
+  req.path = url.split("?")[0];
+  req.query = querystring.parse(url.split("?")[1]);
 
   // 处理博客请求
   const blogData = handlerUserRouter(req, res);
@@ -21,13 +26,5 @@ const serverHandler = (req, res) => {
   res.writeHead(404, {'Content-Type': 'text/html'});
   res.write("<h1>404 Not Found</h1><br/>");
   res.end();
-
-  // const resData = {
-  //   name: '服务服务服务',
-  //   site: 'imooc',
-  //   env: process.env.NODE_ENV
-  // }
-
-  // res.end( JSON.stringify(resData) );
 }
 module.exports = serverHandler;
