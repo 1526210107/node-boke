@@ -32,15 +32,24 @@ const serverHandler = (req, res) => {
 
   formatPostData(req).then(postData => {
     req.body = postData
+    
     // 处理博客请求
-    const blogData = handlerUserRouter(req, res)
-    if (blogData) {
-      res.end(JSON.stringify(blogData))
-      return
+    const blogResult = handlerBlogRouter(req, res);
+    if( blogResult ){
+      blogResult.then( blogData => {
+        res.end( JSON.stringify(blogData) );
+      });
+      return ;
     }
+    // const blogData = handlerUserRouter(req, res)
+    // if (blogData) {
+    //   res.end(JSON.stringify(blogData))
+    //   return
+    // }
 
-    // 处理博客请求
-    const userData = handlerBlogRouter(req, res)
+
+    // 处理用户请求
+    const userData = handlerUserRouter(req, res)
     if (userData) {
       res.end(JSON.stringify(userData))
       return;
