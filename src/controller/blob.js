@@ -4,10 +4,10 @@ const {exec} = require('../db/mysql');
 const getList = (author, keyword) => {
   let sql = 'select * from blogs where 1=1';
   if( author ){
-    sql += `and author='${author}'`;
+    sql += ` and author='${author}'`;
   }
   if( keyword ){
-    sql += `and title='${keyword}'`;
+    sql += ` and title='${keyword}'`;
   }
   sql += ' order by createtime desc';
   return exec(sql);
@@ -15,20 +15,21 @@ const getList = (author, keyword) => {
 
 // 查询博客详情
 const getDetail = id => {
-  return {
-    id: 1,
-    title: '标题A',
-    content: '内容A',
-    author: 'zhangsan',
-    createTime: 1573472666414
-  }
+  let sql = 'select * from blogs where id=' + id;
+  return exec( sql ).then( rows => {
+    return rows[0]
+  });
 }
 
 // 新增博客
 const addBoke = params => {
-  return {
-    suc: '新增成功'
-  }
+  let { title, content, author } = params;
+  let sql = `insert into blogs(title, content, author) values('${title}', '${content}', '${author}')`;
+  return exec(sql).then( result => {
+    return {
+      id: result.insertId
+    }
+  })
 }
 
 // 更新博客
