@@ -4,7 +4,7 @@ const {
   getDetail,
   addBoke,
   updateBoke,
-  delBoke
+  delBoke,
 } = require("../controller/blob");
 
 const handlerBlogRouter = (req, res) => {
@@ -32,17 +32,25 @@ const handlerBlogRouter = (req, res) => {
 
   // 更新一篇博客
   if (method === "POST" && path === "/api/blog/update") {
-    const author = '张三';
     const params = req.body;
-    params.author = author;
-    return updateBoke(params).then( result => new SuccessModel(result) );
+    return updateBoke(params).then( result => {
+      if( result ){
+        return new SuccessModel();
+      }else{
+        return new ErrorModel();
+      }
+    });
   }
 
   // 删除一篇博客
   if (method === "POST" && path === "/api/blog/del") {
     const params = req.body;
-    const data = delBoke(params);
-    return new SuccessModel(data);
+    return delBoke(params).then( res => {
+      if( res ){
+        return new SuccessModel();
+      }
+      return new ErrorModel();
+    });
   }
 };
 

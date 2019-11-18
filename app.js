@@ -23,6 +23,7 @@ const formatPostData = req => {
   })
 }
 
+// 处理请求的服务器回调函数
 const serverHandler = (req, res) => {
   res.setHeader('Content-Type', 'application/json')
 
@@ -41,12 +42,6 @@ const serverHandler = (req, res) => {
       });
       return ;
     }
-    // const blogData = handlerUserRouter(req, res)
-    // if (blogData) {
-    //   res.end(JSON.stringify(blogData))
-    //   return
-    // }
-
 
     // 处理用户请求
     const userData = handlerUserRouter(req, res)
@@ -58,7 +53,7 @@ const serverHandler = (req, res) => {
     // 未命中路由，返回404
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.write('<h1>404 Not Found</h1><br/>')
-    res.end()
+    res.end();
   })
 }
-module.exports = serverHandler
+module.exports = serverHandler;

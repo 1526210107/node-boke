@@ -34,16 +34,26 @@ const addBoke = params => {
 
 // 更新博客
 const updateBoke = params => {
-  return {
-    suc: '更新成功'
-  }
+  let { id, title, content, author } = params;
+  const sql = `update blogs set title='${title}', content='${content}' where id=${id} and author='${author}'`;
+  return exec(sql).then( result => {
+    if( result.affectedRows > 0 ){
+      return true;
+    }
+    return false;
+  });
 }
 
 // 删除博客
 const delBoke = params => {
-  return {
-    suc: '删除成功'
-  }
+  const { id, author } = params;
+  const sql = `delete from blogs where id=${id} and author='${author}'`;
+  return exec(sql).then( result => {
+    if( result.affectedRows > 0 ){
+      return true;
+    }
+    return false;
+  });
 }
 
 
